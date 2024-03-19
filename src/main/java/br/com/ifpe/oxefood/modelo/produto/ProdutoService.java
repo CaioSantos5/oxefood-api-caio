@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class ProdutoService {
 
    @Autowired
-   private ProdutoService repository;
+   private ProdutoRepository repository;
 
    @Transactional
    public Produto save(Produto produto) {

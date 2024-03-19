@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ifpe.oxefood.modelo.produto.Produto;
 import br.com.ifpe.oxefood.modelo.produto.ProdutoService;
-import lombok.Builder;
+//import lombok.Builder;
 
-@Builder
+//@Builder
 @RestController
 @RequestMapping("/api/produto")
 @CrossOrigin

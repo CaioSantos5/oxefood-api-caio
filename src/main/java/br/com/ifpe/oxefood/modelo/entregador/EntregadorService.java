@@ -13,12 +13,12 @@ public class EntregadorService {
    private EntregadorRepository repository;
 
    @Transactional
-   public Entregador save(Entregador cliente) {
+   public Entregador save(Entregador entregador) {
 
-       cliente.setHabilitado(Boolean.TRUE);
-       cliente.setVersao(1L);
-       cliente.setDataCriacao(LocalDate.now());
-       return repository.save(cliente);
+       entregador.setHabilitado(Boolean.TRUE);
+       entregador.setVersao(1L);
+       entregador.setDataCriacao(LocalDate.now());
+       return repository.save(entregador);
    }
 
 }

@@ -44,7 +44,7 @@ public class Entregador extends EntidadeAuditavel  {
    private Integer qtdEntregasRealizadas;
 
    @Column
-   private double valorFrete;
+   private Double valorFrete;
 
    @Column
    private String enderecoRua;
@@ -68,6 +68,6 @@ public class Entregador extends EntidadeAuditavel  {
    private String enderecoComplemento;
 
    @Column
-   private boolean ativo;
+   private Boolean ativo;
 
 }

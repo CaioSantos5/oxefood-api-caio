@@ -1,11 +1,13 @@
 package br.com.ifpe.oxefood.modelo.produto;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
-    /* //Exemplo de uma busca exata
+//Exemplo de uma busca exata
    @Query(value = "SELECT p FROM Produto p WHERE p.codigo = :codigo")
    List<Produto> consultarPorCodigo(String codigo);
 
@@ -20,7 +22,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
    //Exemplo de uma busca com mais de um atributo
    @Query(value = "SELECT p FROM Produto p WHERE p.titulo like %:titulo% AND p.categoria.id = :idCategoria")
-   List<Produto> consultarPorTituloECategoria(String titulo, Long idCategoria); */
+   List<Produto> consultarPorTituloECategoria(String titulo, Long idCategoria); 
 
   
 }

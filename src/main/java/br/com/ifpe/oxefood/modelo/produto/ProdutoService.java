@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 //import br.com.ifpe.oxefood.modelo.produto.produto;
 import br.com.ifpe.oxefood.modelo.produto.Produto;
+import br.com.ifpe.oxefood.util.exception.ProdutoException;
 //import br.com.ifpe.oxefood.modelo.produto.Produto;
 import jakarta.transaction.Transactional;
 
@@ -18,7 +19,12 @@ public class ProdutoService {
    private ProdutoRepository repository;
 
    @Transactional
-   public Produto save(Produto produto) {
+   public Produto save(Produto produto)  {
+
+    if (produto.getValorUnitario() < 10) {
+	    throw new ProdutoException(ProdutoException.MSG_VALOR_MINIMO_PRODUTO);
+	}
+
 
        produto.setHabilitado(Boolean.TRUE);
        produto.setVersao(1L);
@@ -61,7 +67,7 @@ public class ProdutoService {
        repository.save(produto);
    }
 
-   /* public List<Produto> filtrar(String codigo, String titulo, Long idCategoria) {
+    public List<Produto> filtrar(String codigo, String titulo, Long idCategoria) {
 
     List<Produto> listaProdutos = repository.findAll();
 
@@ -87,7 +93,7 @@ public class ProdutoService {
     }
 
     return listaProdutos;
-} */
+} 
 
 
 

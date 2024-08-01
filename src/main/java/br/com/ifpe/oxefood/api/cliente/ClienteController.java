@@ -1,7 +1,6 @@
 package br.com.ifpe.oxefood.api.cliente;
 
 import java.util.List;
-import lombok.Builder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,90 +26,99 @@ import jakarta.validation.Valid;
 @CrossOrigin
 public class ClienteController {
 
+
+
+
+
     @PostMapping("/endereco/{clienteId}")
-   public ResponseEntity<EnderecoCliente> adicionarEnderecoCliente(@PathVariable("clienteId") Long clienteId, @RequestBody @Valid EnderecoClienteRequest request) {
+    public ResponseEntity<EnderecoCliente> adicionarEnderecoCliente(@PathVariable("clienteId") Long clienteId,
+            @RequestBody @Valid EnderecoClienteRequest request) {
 
-       EnderecoCliente endereco = clienteService.adicionarEnderecoCliente(clienteId, request.build());
-       return new ResponseEntity<EnderecoCliente>(endereco, HttpStatus.CREATED);
-   }
+        EnderecoCliente endereco = clienteService.adicionarEnderecoCliente(clienteId, request.build());
+        return new ResponseEntity<EnderecoCliente>(endereco, HttpStatus.CREATED);
+    }
 
-   @PutMapping("/endereco/{enderecoId}")
-   public ResponseEntity<EnderecoCliente> atualizarEnderecoCliente(@PathVariable("enderecoId") Long enderecoId, @RequestBody EnderecoClienteRequest request) {
+    @PutMapping("/endereco/{enderecoId}")
+    public ResponseEntity<EnderecoCliente> atualizarEnderecoCliente(@PathVariable("enderecoId") Long enderecoId,
+            @RequestBody EnderecoClienteRequest request) {
 
-       EnderecoCliente endereco = clienteService.atualizarEnderecoCliente(enderecoId, request.build());
-       return new ResponseEntity<EnderecoCliente>(endereco, HttpStatus.OK);
-   }
-  
-   @DeleteMapping("/endereco/{enderecoId}")
-   public ResponseEntity<Void> removerEnderecoCliente(@PathVariable("enderecoId") Long enderecoId) {
+        EnderecoCliente endereco = clienteService.atualizarEnderecoCliente(enderecoId, request.build());
+        return new ResponseEntity<EnderecoCliente>(endereco, HttpStatus.OK);
+    }
 
-       clienteService.removerEnderecoCliente(enderecoId);
-       return ResponseEntity.noContent().build();
-   }
-   
-   @Autowired
-   private ClienteService clienteService;
+    @DeleteMapping("/endereco/{enderecoId}")
+    public ResponseEntity<Void> removerEnderecoCliente(@PathVariable("enderecoId") Long enderecoId) {
 
-   @Operation(
-       summary = "Serviço responsável por salvar um cliente no sistema.",
-       description = "Exemplo de descrição de um endpoint responsável por inserir um cliente no sistema."
-   )
+        clienteService.removerEnderecoCliente(enderecoId);
+        return ResponseEntity.noContent().build();
+    }
 
 
-   @PostMapping
-   public ResponseEntity<Cliente> save(@RequestBody ClienteRequest request) {
 
-       Cliente cliente = clienteService.save(request.build());
-       return new ResponseEntity<Cliente>(cliente, HttpStatus.CREATED);
-   }
 
-   @Operation(
-       summary = "Serviço responsável por listar todos os clientes salvos no sistema.",
-       description = "Exemplo de descrição de um endpoint responsável por inserir um cliente no sistema."
-   )
 
-   @GetMapping
+
+
+    @Autowired
+    private ClienteService clienteService;
+
+
+
+    @Operation(summary = "Serviço responsável por salvar um cliente no sistema.", description = "Exemplo de descrição de um endpoint responsável por inserir um cliente no sistema.")
+
+    @PostMapping
+    public ResponseEntity<Cliente> save(@RequestBody @Valid ClienteRequest request) {
+
+        Cliente clienteRequisicao = request.build();
+        StringBuilder erros = new StringBuilder();
+
+        Cliente clienteSalvo = clienteService.save(clienteRequisicao);
+        return new ResponseEntity<Cliente>(clienteSalvo, HttpStatus.CREATED);
+
+    }
+
+
+
+
+
+
+    @Operation(summary = "Serviço responsável por listar todos os clientes salvos no sistema.", description = "Exemplo de descrição de um endpoint responsável por inserir um cliente no sistema.")
+
+    @GetMapping
     public List<Cliente> listarTodos() {
         return clienteService.listarTodos();
     }
-    
-    @Operation(
-       summary = "Serviço responsável por retornar um cliente pelo ID.",
-       description = "Exemplo de descrição de um endpoint responsável por inserir um cliente no sistema."
-   )
 
+
+
+
+    @Operation(summary = "Serviço responsável por retornar um cliente pelo ID.", description = "Exemplo de descrição de um endpoint responsável por inserir um cliente no sistema.")
 
     @GetMapping("/{id}")
     public Cliente obterPorID(@PathVariable Long id) {
         return clienteService.obterPorID(id);
     }
 
-    @Operation(
-       summary = "Serviço responsável por alterar um cliente no sistema.",
-       description = "Exemplo de descrição de um endpoint responsável por inserir um cliente no sistema."
-   )
 
+
+
+    @Operation(summary = "Serviço responsável por alterar um cliente no sistema.", description = "Exemplo de descrição de um endpoint responsável por inserir um cliente no sistema.")
 
     @PutMapping("/{id}")
     public ResponseEntity<Cliente> update(@PathVariable("id") Long id, @RequestBody ClienteRequest request) {
 
-       clienteService.update(id, request.build());
-       return ResponseEntity.ok().build();
+        clienteService.update(id, request.build());
+        return ResponseEntity.ok().build();
     }
+
+
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
 
-       clienteService.delete(id);
-       return ResponseEntity.ok().build();
+        clienteService.delete(id);
+        return ResponseEntity.ok().build();
     }
 
-
-
-    //@GetMapping("/{cpf}")
-    //public Cliente obterPorID(@PathVariable string cpf) {
-    //  ROTAS  return clienteService.obterPorID(id);
-    //}
-
 }
-
